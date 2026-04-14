@@ -1,12 +1,12 @@
-#nullable enable
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace StreetStatusAPI.Entities
 {
+    [Table("users")]
     public class User
     {
         public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string PhoneNumber { get; set; } = string.Empty;
+        public string UserName { get; set; } 
         public DateTime CreatedDate { get; set; }
     }
 }

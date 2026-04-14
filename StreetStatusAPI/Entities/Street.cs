@@ -2,8 +2,10 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace StreetStatusAPI.Entities
 {
+    [Table("streets")]
     public class Street : BaseStreetEntity
     {
+        
         [Required]
         [Column("street_name")]
         public string StreetName { get; set; } = string.Empty;
