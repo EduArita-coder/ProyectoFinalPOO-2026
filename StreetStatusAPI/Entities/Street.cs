@@ -23,11 +23,5 @@ namespace StreetStatusAPI.Entities
         [ForeignKey(nameof(LocationId))]
         public virtual Location Location { get; set; }
 
-        // Relación con User (Clave foránea)
-        [Column("user_id")]
-        [Required]
-        public string UserId { get; set; }
-        [ForeignKey(nameof(UserId))]
-        public virtual User User { get; set; }
     }
 }
