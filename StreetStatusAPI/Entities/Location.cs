@@ -4,17 +4,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace StreetStatusAPI.Entities
 {
     [Table("locations")]
-    public class Location
+    public class Location : BaseStreetEntity
     {
-        [Required]
-        [StringLength(32)]
-        public int Id { get; set; }
         [StringLength(40)]
-        public string City { get; set; }
+        [Column("Ciudad")]
+        public string Name { get; set; }
+        [Column("Calle")]
         [StringLength(40)]
-        public string Province { get; set; }
-        [StringLength(20)]
-        public string Country { get; set; } 
+        public string Calle { get; set; }
+        [Column("Codigo_Postal")]
         [StringLength(10)]
         public string ZipCode { get; set; }
         public DateTime CreatedDate { get; set; }
