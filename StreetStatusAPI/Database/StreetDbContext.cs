@@ -9,7 +9,6 @@ namespace StreetStatusAPI.Database
 
         public DbSet<Street> Streets { get; set; }
         public DbSet<Location> Locations { get; set; }
-        public DbSet<User> Users { get; set; }
     }
     
 }

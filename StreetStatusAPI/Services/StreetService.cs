@@ -69,8 +69,8 @@ namespace StreetStatusAPI.Services
                 StatusCode = HttpStatusCode.CREATED,
                 Status = true,
                 Message = HttpMessageResponse.REGISTER_CREATED,
-                Data = new StreetActionResponseDto { Id = street.Id }
+                Data = new StreetActionResponseDto {    Id = street.Id.ToString() }
             };
         }
     }
-}
+}
