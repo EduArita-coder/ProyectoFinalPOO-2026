@@ -6,16 +6,20 @@ namespace StreetStatusAPI.Entities
     [Table("locations")]
     public class Location : BaseStreetEntity
     {
+        [Required]
         [StringLength(40)]
-        [Column("Ciudad")]
-        public string Name { get; set; }
-        [Column("Calle")]
+        [Column("City")]
+        public string City{ get; set; }
+        [Required]
+        [Column("Street")]
         [StringLength(40)]
-        public string Calle { get; set; }
-        [Column("Codigo_Postal")]
+        public string Street { get; set; }
+        [Required]
+        [Column("ZipCode")]
         [StringLength(10)]
         public string ZipCode { get; set; }
-        public DateTime CreatedDate { get; set; }
+
+        public virtual ICollection<StreetEntity> Streets { get; set; } = new List<StreetEntity>();
 
     }
 }

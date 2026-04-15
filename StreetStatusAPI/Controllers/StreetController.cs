@@ -23,7 +23,7 @@ namespace StreetStatusAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(string id)
         {
             var result = await _streetService.GetByIdAsync(id);
             return StatusCode(result.StatusCode, result);
@@ -34,6 +34,18 @@ namespace StreetStatusAPI.Controllers
         {
             var result = await _streetService.CreateAsync(dto);
             return StatusCode(result.StatusCode, result);
+        }
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(string id,StreetEditDto dto)
+            {
+                var result = await _streetService.EditAsync(id, dto);
+                return StatusCode(result.StatusCode, result);
+            }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(string id)
+        {
+            var result = await _streetService.DeleteAsync(id);
+            return StatusCode(result.StatusCode,result);
         }
     }
 }

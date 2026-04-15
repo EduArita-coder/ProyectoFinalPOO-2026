@@ -13,6 +13,7 @@ builder.Services.AddDbContext<StreetDbContext>(options =>
 
 // Registra los servicios
 builder.Services.AddScoped<IStreetService, StreetService>();
+builder.Services.AddScoped<ILocationService, LocationService>();
 
 var app = builder.Build();
 

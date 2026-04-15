@@ -2,7 +2,7 @@ using StreetStatusAPI.Entities;
 
 namespace StreetStatusAPI.Dtos.Streets
 {
-    public class StreetDto
+    public class StreetDto 
     {
         public string Id { get; set; }
         public string StreetName { get; set; }
