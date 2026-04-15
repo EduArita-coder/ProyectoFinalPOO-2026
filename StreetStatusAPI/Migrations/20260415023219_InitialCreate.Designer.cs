@@ -11,7 +11,7 @@ using StreetStatusAPI.Database;
 namespace StreetStatusAPI.Migrations
 {
     [DbContext(typeof(StreetDbContext))]
-    [Migration("20260415005210_InitialCreate")]
+    [Migration("20260415023219_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -22,15 +22,15 @@ namespace StreetStatusAPI.Migrations
 
             modelBuilder.Entity("StreetStatusAPI.Entities.Location", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT")
                         .HasColumnName("id");
 
-                    b.Property<string>("Calle")
+                    b.Property<string>("City")
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("TEXT")
-                        .HasColumnName("Calle");
+                        .HasColumnName("City");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT")
@@ -40,10 +40,11 @@ namespace StreetStatusAPI.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("last_modified_date");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Street")
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("TEXT")
-                        .HasColumnName("Ciudad");
+                        .HasColumnName("Street");
 
                     b.Property<string>("UpdatedById")
                         .HasColumnType("TEXT")
@@ -54,20 +55,20 @@ namespace StreetStatusAPI.Migrations
                         .HasColumnName("updated_date");
 
                     b.Property<string>("ZipCode")
+                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("TEXT")
-                        .HasColumnName("Codigo_Postal");
+                        .HasColumnName("ZipCode");
 
                     b.HasKey("Id");
 
                     b.ToTable("locations");
                 });
 
-            modelBuilder.Entity("StreetStatusAPI.Entities.Street", b =>
+            modelBuilder.Entity("StreetStatusAPI.Entities.StreetEntity", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT")
                         .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedDate")
@@ -86,8 +87,9 @@ namespace StreetStatusAPI.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("last_repair_date");
 
-                    b.Property<int>("LocationId")
-                        .HasColumnType("INTEGER")
+                    b.Property<string>("LocationId")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
                         .HasColumnName("location_id");
 
                     b.Property<int>("Status")
@@ -114,7 +116,7 @@ namespace StreetStatusAPI.Migrations
                     b.ToTable("streets");
                 });
 
-            modelBuilder.Entity("StreetStatusAPI.Entities.Street", b =>
+            modelBuilder.Entity("StreetStatusAPI.Entities.StreetEntity", b =>
                 {
                     b.HasOne("StreetStatusAPI.Entities.Location", "Location")
                         .WithMany()

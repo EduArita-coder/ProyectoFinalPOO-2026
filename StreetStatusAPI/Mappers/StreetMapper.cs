@@ -5,10 +5,11 @@ namespace StreetStatusAPI.Mappers
 {
     public static class StreetMapper
     {
-        public static Street CreateDtoToEntity(StreetCreateDto dto)
+        public static StreetEntity CreateDtoToEntity(StreetCreateDto dto)
         {
-            return new Street
+            return new StreetEntity
             {
+                Id = Guid.NewGuid().ToString(),
                 StreetName = dto.StreetName,
                 Description = dto.Description,
                 LocationId = dto.LocationId,
@@ -17,7 +18,7 @@ namespace StreetStatusAPI.Mappers
             };
         }
 
-        public static StreetDto EntityToDto(Street entity)
+        public static StreetDto EntityToDto(StreetEntity entity)
         {
             return new StreetDto
             {
@@ -30,7 +31,17 @@ namespace StreetStatusAPI.Mappers
             };
         }
 
-        public static List<StreetDto> ListEntityToListDto(List<Street> entities)
+        public static StreetEntity EditDtoToEntity(StreetEntity entity,StreetEditDto dto)
+        {
+            entity.StreetName = dto.StreetName;
+            entity.Description = dto.Description;
+            entity.Status = Enum.Parse<StreetStatus>(dto.Status);
+            entity.LastRepairDate = dto.LastRepairDate;
+            entity.LocationId = dto.LocationId;
+
+            return entity;
+        }
+        public static List<StreetDto> ListEntityToListDto(List<StreetEntity> entities)
         {
             return entities.Select(s => EntityToDto(s)).ToList();
         }

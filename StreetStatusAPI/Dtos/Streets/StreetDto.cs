@@ -9,6 +9,6 @@ namespace StreetStatusAPI.Dtos.Streets
         public string Description { get; set; }
         public string Status { get; set; }
         public DateTime LastRepairDate { get; set; }
-        public int LocationId { get; set; }
+        public string LocationId { get; set; }
     }
 }

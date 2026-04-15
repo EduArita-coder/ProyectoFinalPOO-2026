@@ -15,11 +15,10 @@ namespace StreetStatusAPI.Migrations
                 name: "locations",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Ciudad = table.Column<string>(type: "TEXT", maxLength: 40, nullable: true),
-                    Calle = table.Column<string>(type: "TEXT", maxLength: 40, nullable: true),
-                    Codigo_Postal = table.Column<string>(type: "TEXT", maxLength: 10, nullable: true),
+                    id = table.Column<string>(type: "TEXT", nullable: false),
+                    City = table.Column<string>(type: "TEXT", maxLength: 40, nullable: false),
+                    Street = table.Column<string>(type: "TEXT", maxLength: 40, nullable: false),
+                    ZipCode = table.Column<string>(type: "TEXT", maxLength: 10, nullable: false),
                     created_date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     last_modified_date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     updated_by_id = table.Column<string>(type: "TEXT", nullable: true),
@@ -34,13 +33,12 @@ namespace StreetStatusAPI.Migrations
                 name: "streets",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    id = table.Column<string>(type: "TEXT", nullable: false),
                     street_name = table.Column<string>(type: "TEXT", nullable: false),
                     status = table.Column<int>(type: "INTEGER", nullable: false),
                     description = table.Column<string>(type: "TEXT", nullable: true),
                     last_repair_date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    location_id = table.Column<int>(type: "INTEGER", nullable: false),
+                    location_id = table.Column<string>(type: "TEXT", nullable: false),
                     created_date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     last_modified_date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     updated_by_id = table.Column<string>(type: "TEXT", nullable: true),

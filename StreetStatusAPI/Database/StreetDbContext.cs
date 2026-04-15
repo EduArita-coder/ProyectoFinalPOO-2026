@@ -7,7 +7,7 @@ namespace StreetStatusAPI.Database
     {
         public StreetDbContext(DbContextOptions<StreetDbContext> options) : base(options) { }
 
-        public DbSet<Street> Streets { get; set; }
+        public DbSet<StreetEntity> Streets { get; set; }
         public DbSet<Location> Locations { get; set; }
     }
     

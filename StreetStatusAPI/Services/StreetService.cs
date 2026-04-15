@@ -32,7 +32,7 @@ namespace StreetStatusAPI.Services
             };
         }
 
-        public async Task<ResponseDto<StreetDto>> GetByIdAsync(int id)
+        public async Task<ResponseDto<StreetDto>> GetByIdAsync(string id)
         {
             var street = await _context.Streets
                 .Include(s => s.Location)
@@ -59,7 +59,19 @@ namespace StreetStatusAPI.Services
 
         public async Task<ResponseDto<StreetActionResponseDto>> CreateAsync(StreetCreateDto dto)
         {
-            var street = StreetMapper.CreateDtoToEntity(dto);
+            var locationExists = await _context.Locations
+                .AnyAsync(l => l.Id == dto.LocationId);
+
+            if (!locationExists)
+            {
+                return new ResponseDto<StreetActionResponseDto>
+                {
+                    StatusCode = HttpStatusCode.BAD_REQUEST,
+                    Status = false,
+                    Message = "La ubicacion enviada no existe."
+                };
+            }
+            StreetEntity street = StreetMapper.CreateDtoToEntity(dto);
 
             _context.Streets.Add(street);
             await _context.SaveChangesAsync();
@@ -69,7 +81,90 @@ namespace StreetStatusAPI.Services
                 StatusCode = HttpStatusCode.CREATED,
                 Status = true,
                 Message = HttpMessageResponse.REGISTER_CREATED,
-                Data = new StreetActionResponseDto {    Id = street.Id.ToString() }
+                Data = new StreetActionResponseDto 
+                { 
+                       Id = street.Id 
+                }
+            };
+        }
+        public async Task<ResponseDto<StreetActionResponseDto>> EditAsync(string id,StreetEditDto dto)
+        {
+
+            var streetEntity = await _context.Streets.FirstOrDefaultAsync(s =>s.Id == id);
+            if(streetEntity is null)
+            {
+                return new ResponseDto<StreetActionResponseDto>
+                {
+                  StatusCode = HttpStatusCode.NOT_FOUND,
+                  Status = false,
+                  Message = HttpMessageResponse.REGISTER_NOT_FOUND,  
+                };
+            }
+            var locationExists = await _context.Locations.AnyAsync(l => l.Id == dto.LocationId);
+            if (!locationExists)
+            {
+                return new ResponseDto<StreetActionResponseDto>
+                {
+                    StatusCode = HttpStatusCode.BAD_REQUEST,
+                    Status = false,
+                    Message = "La ubicacion enviada no existe."
+                };
+            }
+
+            var duplicatedStreet = await _context.Streets.AnyAsync(s =>
+                s.Id != id &&
+                s.StreetName == dto.StreetName &&
+                s.LocationId == dto.LocationId);
+
+            if (duplicatedStreet)
+            {
+                return new ResponseDto<StreetActionResponseDto>
+                {
+                    StatusCode = HttpStatusCode.CONFLICT,
+                    Status = false,
+                    Message = "Ya existe una calle con ese nombre en esa ubicacion."
+                };
+            }
+            var streetEntityUpdated = StreetMapper.EditDtoToEntity(streetEntity,dto);
+            _context.Streets.Update(streetEntityUpdated);
+            await _context.SaveChangesAsync();
+
+            return new ResponseDto<StreetActionResponseDto>
+            {
+                StatusCode = HttpStatusCode.OK,
+                Status = true ,
+                Message = HttpMessageResponse.REGISTER_UPDATED,
+                Data = new StreetActionResponseDto
+                {
+                    Id = id
+                }
+            };
+
+        }
+        public async Task<ResponseDto<StreetActionResponseDto>> DeleteAsync(string id)
+        {
+            var streetEntity = await _context.Streets.FirstOrDefaultAsync(s =>s.Id == id);
+            if(streetEntity is null)
+            {
+                return new ResponseDto<StreetActionResponseDto>
+                {
+                  StatusCode = HttpStatusCode.NOT_FOUND,
+                  Status = false,
+                  Message = HttpMessageResponse.REGISTER_NOT_FOUND,  
+                };
+            }
+            _context.Streets.Remove(streetEntity);
+            await _context.SaveChangesAsync();
+
+            return new ResponseDto<StreetActionResponseDto>
+            {
+                StatusCode = HttpStatusCode.OK,
+                Status = true,
+                Message = HttpMessageResponse.REGISTER_DELETED,
+                Data = new StreetActionResponseDto
+                {
+                    Id = id
+                }
             };
         }
     }

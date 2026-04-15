@@ -11,6 +11,12 @@ namespace StreetStatusAPI.Dtos.Streets
         public string Description { get; set; }
         [Display(Name = "Ubicacion")]
         [Required(ErrorMessage = "la {0} es requerida")]
-        public int LocationId { get; set; }
+        public string LocationId { get; set; }
+        [Display(Name = "Estado")]
+        [Required(ErrorMessage = "el {0} es requerido.")]
+        public string Status { get; set; }
+        [Display(Name = "Fecha de ultima reparacion")]
+        [Required(ErrorMessage = "la {0} es requerida.")]
+        public DateTime LastRepairDate { get; set; }
     }
 }
