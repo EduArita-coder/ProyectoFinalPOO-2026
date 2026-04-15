@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using StreetStatusAPI.Entities;
+using StreetStatusAPI.Dtos.Streets;
 using StreetStatusAPI.Services;
 
 namespace StreetStatusAPI.Controllers
@@ -15,34 +15,25 @@ namespace StreetStatusAPI.Controllers
             _streetService = streetService;
         }
 
-        // GET api/street
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var streets = await _streetService.GetAllAsync();
-            return Ok(streets);
+            var result = await _streetService.GetAllAsync();
+            return StatusCode(result.StatusCode, result);
         }
 
-        // GET api/street/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var street = await _streetService.GetByIdAsync(id);
-            if (street is null)
-                return NotFound(new { message = $"Calle con id {id} no encontrada." });
-
-            return Ok(street);
+            var result = await _streetService.GetByIdAsync(id);
+            return StatusCode(result.StatusCode, result);
         }
 
-        // POST api/street
         [HttpPost]
-        public async Task<IActionResult> Create(Street street)
+        public async Task<IActionResult> Create(StreetCreateDto dto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var created = await _streetService.CreateAsync(street);
-            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            var result = await _streetService.CreateAsync(dto);
+            return StatusCode(result.StatusCode, result);
         }
     }
 }
