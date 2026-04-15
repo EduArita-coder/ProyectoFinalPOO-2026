@@ -15,7 +15,6 @@ namespace StreetStatusAPI.Entities
         [Column("Codigo_Postal")]
         [StringLength(10)]
         public string ZipCode { get; set; }
-        public DateTime CreatedDate { get; set; }
 
     }
 }

@@ -19,7 +19,7 @@ namespace StreetStatusAPI.Entities
         public DateTime LastRepairDate { get; set; }
         [Column("location_id")]
         [Required]
-        public string LocationId { get; set; }
+        public int LocationId { get; set; }
         [ForeignKey(nameof(LocationId))]
         public virtual Location Location { get; set; }
 
