@@ -13,7 +13,8 @@ namespace StreetStatusAPI.Mappers
                 StreetName = dto.StreetName,
                 Description = dto.Description,
                 LocationId = dto.LocationId,
-                Status = StreetStatus.SinReparar,
+                Status = Enum.Parse<StreetStatus>(dto.Status),
+                LastRepairDate = dto.LastRepairDate,
                 CreatedDate = DateTime.UtcNow
             };
         }
