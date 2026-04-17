@@ -1,0 +1,17 @@
+info:
+  name: GetOne
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{PARH_URL}}/street/27443b35-3ca0-489e-ba40-c56d08041230"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+docs: Se utiliza para buscar una calle específica usando su ID. Es útil cuando solo se necesita ver el detalle de una calle en particular.

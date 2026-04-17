@@ -1,0 +1,17 @@
+info:
+  name: GetAll
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{PARH_URL}}/location"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+docs: Permite obtener la información de una ubicación específica usando su ID. Sirve para ver detalles de un solo lugar.

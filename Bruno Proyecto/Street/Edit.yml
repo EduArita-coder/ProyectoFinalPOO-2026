@@ -1,0 +1,27 @@
+info:
+  name: Edit
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: "{{PARH_URL}}/street/55367c73-c8cf-4b37-86ca-09945e11eb25"
+  body:
+    type: json
+    data: |2-
+          {
+            "streetName": "",
+            "description": "Calle en malas condiciones",
+            "status": "2",
+            "lastRepairDate": "2025-02-16T00:00:00",
+            "locationId": "c9ce6da0-ce66-4d77-8be7-9495316fdeca"
+          }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+docs: Sirve para actualizar la información de una calle que ya existe. Se usa el ID para identificarla y luego se modifican los datos que se deseen cambiar.

@@ -1,0 +1,17 @@
+info:
+  name: GetAll
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{PARH_URL}}/street"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+docs: Este endpoint sirve para traer todas las calles registradas en la base de datos. Básicamente muestra una lista completa con la información de cada calle.

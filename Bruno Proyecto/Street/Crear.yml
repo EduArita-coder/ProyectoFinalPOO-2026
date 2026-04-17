@@ -1,0 +1,27 @@
+info:
+  name: Crear
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{PARH_URL}}/street"
+  body:
+    type: json
+    data: |2-
+          {
+            "streetName": "",
+            "description": "Calle En Reparacion",
+            "status": "2",
+            "lastRepairDate": "2026-04-19T00:00:00",
+            "locationId": ""
+          }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+docs: Permite agregar una nueva calle al sistema. Aquí se envían datos como el nombre, estado, fecha de reparación y la ubicación a la que pertenece.

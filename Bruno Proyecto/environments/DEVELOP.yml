@@ -1,0 +1,4 @@
+name: DEVELOP
+variables:
+  - name: PARH_URL
+    value: http://localhost:5150/api

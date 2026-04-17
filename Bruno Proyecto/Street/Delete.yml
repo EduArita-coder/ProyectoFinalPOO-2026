@@ -1,0 +1,20 @@
+info:
+  name: Delete
+  type: http
+  seq: 5
+
+http:
+  method: DELETE
+  url: "{{PARH_URL}}/street/27443b35-3ca0-489e-ba40-c56d08041230"
+  body:
+    type: json
+    data: ""
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+docs: Este endpoint elimina una calle del sistema utilizando su ID. Se usa cuando una calle ya no necesita estar registrada.
