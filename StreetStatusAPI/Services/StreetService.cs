@@ -107,8 +107,8 @@ namespace StreetStatusAPI.Services
                   Message = HttpMessageResponse.REGISTER_NOT_FOUND,  
                 };
             }
-            var locationExists = await _context.Locations.AnyAsync(l => l.Id == dto.LocationId);
-            if (!locationExists)
+            var location = await _context.Locations.FirstOrDefaultAsync(l => l.Id == dto.LocationId);
+            if (location is null)
             {
                 return new ResponseDto<StreetActionResponseDto>
                 {
@@ -116,6 +116,12 @@ namespace StreetStatusAPI.Services
                     Status = false,
                     Message = "La ubicacion enviada no existe."
                 };
+            }
+
+            // Si no se proporciona un nombre de calle, usar el nombre de la ubicación
+            if (string.IsNullOrWhiteSpace(dto.StreetName))
+            {
+                dto.StreetName = location.Street;
             }
 
             var duplicatedStreet = await _context.Streets.AnyAsync(s =>
