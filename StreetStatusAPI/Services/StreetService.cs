@@ -59,10 +59,10 @@ namespace StreetStatusAPI.Services
 
         public async Task<ResponseDto<StreetActionResponseDto>> CreateAsync(StreetCreateDto dto)
         {
-            var locationExists = await _context.Locations
-                .AnyAsync(l => l.Id == dto.LocationId);
+            var location = await _context.Locations
+                .FirstOrDefaultAsync(l => l.Id == dto.LocationId);
 
-            if (!locationExists)
+            if (location is null)
             {
                 return new ResponseDto<StreetActionResponseDto>
                 {
@@ -71,6 +71,13 @@ namespace StreetStatusAPI.Services
                     Message = "La ubicacion enviada no existe."
                 };
             }
+            
+            // Si no se proporciona un nombre de calle, usar el nombre de la ubicación
+            if (string.IsNullOrWhiteSpace(dto.StreetName))
+            {
+                dto.StreetName = location.Street;
+            }
+            
             StreetEntity street = StreetMapper.CreateDtoToEntity(dto);
 
             _context.Streets.Add(street);

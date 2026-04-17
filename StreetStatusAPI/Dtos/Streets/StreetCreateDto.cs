@@ -4,7 +4,7 @@ namespace StreetStatusAPI.Dtos.Streets
 {
     public class StreetCreateDto
     {
-        [Required(ErrorMessage = "El nombre de la calle es requerido.")]
+        [Display(Name = "Nombre de la calle")]
         public string StreetName { get; set; }
         [Display(Name = "Descripcion")]
         [Required(ErrorMessage = "la {0} es requerida.")]
